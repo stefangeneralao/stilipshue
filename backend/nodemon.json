@@ -1,0 +1,5 @@
+{
+  "exec": "yarn tsc && yarn build && yarn start:build",
+  "watch": ["src", "package.json", "tsconfig.json", "nodemon.json"],
+  "ext": "*"
+}
