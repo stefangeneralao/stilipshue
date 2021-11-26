@@ -33,7 +33,7 @@ export const Jobs = () => {
     const fetchJobs = async () => {
       try {
         const { data } = await axios.get<IJobsResponse>(
-          'http://192.168.0.2:3001/jobs',
+          'http://stilipshue.local:3002/jobs',
         );
         console.log(data);
         setJobs(data);

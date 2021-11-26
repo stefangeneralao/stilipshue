@@ -13,7 +13,7 @@ export const Devices = () => {
     const fetchDevices = async () => {
       try {
         const { data } = await axios.get<TDevice[]>(
-          'http://192.168.0.2:3001/devices',
+          'http://stilipshue.local:3002/devices',
         );
         setDevices(data);
       } catch {

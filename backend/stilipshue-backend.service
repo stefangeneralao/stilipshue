@@ -1,0 +1,14 @@
+[Unit]
+Description=Stilipshue backend server
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/node /home/pi/stilipshue/backend/build
+WorkingDirectory=/home/pi/stilipshue/backend
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=root
+
+[Install]
+WantedBy=multi-user.target
