@@ -33,7 +33,7 @@ export const Jobs = () => {
     const fetchJobs = async () => {
       try {
         const { data } = await axios.get<IJobsResponse>(
-          'http://stilipshue.local:3002/jobs',
+          `${import.meta.env.API_URL}/jobs`,
         );
         console.log(data);
         setJobs(data);

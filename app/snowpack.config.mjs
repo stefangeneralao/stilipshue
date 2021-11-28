@@ -34,4 +34,7 @@ export default {
   buildOptions: {
     /* ... */
   },
+  env: {
+    API_URL: 'http://stilipshue.local:3002',
+  },
 };

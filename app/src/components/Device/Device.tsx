@@ -21,7 +21,9 @@ export const Device = ({ name, initialState, id }: Props) => {
       const {
         data: { state: responseState },
       } = await axios.post<{ state: ShellyRelayState }>(
-        `http://stilipshue.local:3002/devices/relays?state=${requestState}&id=${id}`,
+        `${
+          import.meta.env.API_URL
+        }/devices/relays?state=${requestState}&id=${id}`,
       );
       setState(responseState);
     } catch {

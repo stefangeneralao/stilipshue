@@ -13,7 +13,7 @@ export const Devices = () => {
     const fetchDevices = async () => {
       try {
         const { data } = await axios.get<TDevice[]>(
-          'http://stilipshue.local:3002/devices',
+          `${import.meta.env.API_URL}/devices`,
         );
         setDevices(data);
       } catch {
