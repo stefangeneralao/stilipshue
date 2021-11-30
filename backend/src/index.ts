@@ -81,56 +81,32 @@ app.get('/jobs', (_, res) => {
 });
 
 app.all(
-  '/devices/relays',
+  '/devices/relay/:id',
   async (
-    req: Request<
-      {},
-      {},
-      {},
-      { state: ShellyRelayState; nameSearch: string; id: string }
-    >,
+    req: Request<{ id: string }, {}, {}, { state?: ShellyRelayState }>,
     res
   ) => {
-    console.log('Received request for /devices/relays.');
+    console.log('Received request for /devices/relay.');
 
-    const { nameSearch, state, id } = req.query;
+    const { id } = req.params;
+    const { state } = req.query;
 
     try {
-      if (!state) {
-        throw new Error('No relay state provided.');
+      if (!id) {
+        throw new Error('No relay id provided.');
       }
 
-      if (nameSearch && id) {
-        throw new Error('Cannot search by both name and id.');
+      const device = shellyRelays.findById(id);
+      if (!device) {
+        throw new Error(`Relay with id ${id} not found.`);
       }
 
-      if (id) {
-        const device = shellyRelays.findById(id);
-        if (!device) {
-          throw new Error(`Relay with id ${id} not found.`);
-        }
+      if (state) {
         device.setState(state);
-        res.status(200).send(await device.toJSON());
-        return;
       }
 
-      if (nameSearch) {
-        const devices = shellyRelays.findByName(nameSearch);
-
-        if (devices.length === 0) {
-          throw new Error(`Could not find relay with name ${nameSearch}.`);
-        }
-
-        devices.forEach((relay) => {
-          relay.setState(state);
-        });
-        res.status(200).send(devices.map((device) => device.getName()));
-      } else {
-        shellyRelays.getAll().forEach((device) => {
-          device.setState(state);
-        });
-        res.sendStatus(200);
-      }
+      res.status(200).send(await device.toJSON());
+      return;
     } catch (e: any) {
       console.error(e);
       if (e.message) {
@@ -142,7 +118,7 @@ app.all(
   }
 );
 
-app.get('/devices', async (_, res) => {
+app.get('/devices/relays', async (_, res) => {
   console.log('Received request for all devices.');
   const devices = await shellyRelays.toJSON();
   res.send(devices);
