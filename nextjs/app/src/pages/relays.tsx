@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import Relays from '../components/Relays';
+import Relays from '~/components/Relays';
 
 const RelaysPage: NextPage = () => {
   return (

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { Relay } from '../../../../types/relay';
+import { Relay } from '~/types/relay';
 
 const API_URL = process.env.API_URL;
 
