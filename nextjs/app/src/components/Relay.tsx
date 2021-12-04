@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Switch, Typography } from '@mui/material';
+import { WbIncandescentTwoTone } from '@mui/icons-material';
 import type { RelayState, Relay as TRelay } from '~/types/relay';
+import styled from 'styled-components';
+import Card from '~/components/Card';
 
 interface Props {
   name: string;
@@ -9,6 +13,29 @@ interface Props {
 }
 
 type NetworkStatus = 'loading' | 'error' | 'success';
+
+const IconWrapper = styled.div`
+  height: 100%;
+  position: relative;
+`;
+
+const Icon = styled(WbIncandescentTwoTone)`
+  position: absolute;
+  transform: translateY(-50%);
+  top: 50%;
+`;
+
+const P = styled(Typography)`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin: 0;
+  grid-column: 1 / -1;
+`;
+
+const StyledSwitch = styled(Switch)`
+  margin-left: auto;
+`;
 
 const Relay = ({ name, initialState, id }: Props) => {
   const [state, setState] = useState(initialState);
@@ -20,6 +47,8 @@ const Relay = ({ name, initialState, id }: Props) => {
     }
 
     setNetworkStatus('loading');
+    setState(state === 'on' ? 'off' : 'on');
+
     try {
       const { data } = await axios.patch<TRelay>(`/api/devices/relay/${id}`, {
         id,
@@ -33,26 +62,21 @@ const Relay = ({ name, initialState, id }: Props) => {
     }
   };
 
-  if (networkStatus === 'error') {
-    return (
-      <div onClick={onClickHandler}>
-        <p>{`${name}: Failed`}</p>
-      </div>
-    );
-  }
-
-  if (networkStatus === 'loading') {
-    return (
-      <div onClick={onClickHandler}>
-        <p>{`${name}: Loading`}</p>
-      </div>
-    );
-  }
+  console.log('relay', id);
 
   return (
-    <div onClick={onClickHandler}>
-      <p>{`${name}: ${state}`}</p>
-    </div>
+    <>
+      <Card onClick={onClickHandler} disabled={state === 'off'}>
+        <IconWrapper>
+          <Icon color={state === 'on' ? 'primary' : 'disabled'} />
+        </IconWrapper>
+        <StyledSwitch
+          checked={state === 'on'}
+          disabled={networkStatus === 'loading'}
+        />
+        <P>{`${name}${networkStatus === 'error' ? ': error' : ''}`}</P>
+      </Card>
+    </>
   );
 };
 

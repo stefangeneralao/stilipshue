@@ -14,6 +14,17 @@ export default async function handler(
   } = req;
 
   switch (method) {
+    case 'GET':
+      try {
+        const { data } = await axios.post<Relay>(
+          `${API_URL}/devices/relay/${id}`
+        );
+        res.status(200).json(data);
+      } catch (err: any) {
+        res.status(500).send(err.message);
+      }
+      break;
+
     case 'PATCH':
       try {
         const { state } = req.body;
@@ -24,17 +35,6 @@ export default async function handler(
 
         const { data } = await axios.post<Relay>(
           `${API_URL}/devices/relay/${id}?state=${state}`
-        );
-        res.status(200).json(data);
-      } catch (err: any) {
-        res.status(500).send(err.message);
-      }
-      break;
-
-    case 'GET':
-      try {
-        const { data } = await axios.post<Relay>(
-          `${API_URL}/devices/relay/${id}`
         );
         res.status(200).json(data);
       } catch (err: any) {

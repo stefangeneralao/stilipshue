@@ -1,11 +1,25 @@
 import React from 'react';
 import Head from 'next/head';
-import Image from 'next/image';
-import styles from '~/styles/Layout.module.scss';
+import Header from './Header';
+import styled from 'styled-components';
 
 interface Props {
   children: React.ReactNode;
 }
+
+const StyledMain = styled.main`
+  max-width: 768px;
+  margin: auto;
+`;
+
+const StyledFooter = styled.footer`
+  display: flex;
+  flex: 1;
+  padding: 2rem 0;
+  border-top: 1px solid #eaeaea;
+  justify-content: center;
+  align-items: center;
+`;
 
 const Layout = ({ children }: Props) => {
   return (
@@ -13,22 +27,9 @@ const Layout = ({ children }: Props) => {
       <Head>
         <title>Stilips Hue</title>
       </Head>
-      <header className={styles.header}>
-        <h1>Stilips Hue</h1>
-      </header>
-      <main>{children}</main>
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
+      <Header />
+      <StyledMain>{children}</StyledMain>
+      <StyledFooter>Made by Generalao Tech</StyledFooter>
     </>
   );
 };
