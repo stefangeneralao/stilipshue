@@ -14,12 +14,18 @@ const StyledHeader = styled.header`
   font-size: 1.7rem;
 `;
 
-const Header = () => {
+interface Props {
+  label: string;
+}
+
+const Header = ({ label }: Props) => {
   return (
     <Link href="/" passHref>
-      <StyledHeader>
-        <h1>Stilips Hue</h1>
-      </StyledHeader>
+      <a>
+        <StyledHeader>
+          <h1>{label}</h1>
+        </StyledHeader>
+      </a>
     </Link>
   );
 };

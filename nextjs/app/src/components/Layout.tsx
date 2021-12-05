@@ -27,7 +27,7 @@ const Layout = ({ children }: Props) => {
       <Head>
         <title>Stilips Hue</title>
       </Head>
-      <Header />
+      <Header label="Stilips" />
       <StyledMain>{children}</StyledMain>
       <StyledFooter>Made by Generalao Tech</StyledFooter>
     </>
