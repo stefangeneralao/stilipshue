@@ -35,6 +35,6 @@ export default {
     /* ... */
   },
   env: {
-    API_URL: 'http://stilipshue.local:3002',
+    API_URL: 'http://stilipshue.local:3001',
   },
 };
