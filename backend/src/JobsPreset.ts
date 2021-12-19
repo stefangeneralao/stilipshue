@@ -55,3 +55,4 @@ export const jobs = new Jobs()
       .addTask(new (Tasks.getAllTasks().turnOffShellyRelay)(christmas))
       .addTask(new (Tasks.getAllTasks().turnOffShellyRelay)(ledString))
   );
+

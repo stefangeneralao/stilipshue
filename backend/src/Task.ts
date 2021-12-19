@@ -39,8 +39,6 @@ abstract class ShellyTask extends Task {
   constructor(shellyRelay: ShellyRelay, name: string, callback: () => void) {
     super(name, callback);
 
-    console.log('ShellyRelay', shellyRelay);
-
     this.shellyRelay = shellyRelay;
   }
 
