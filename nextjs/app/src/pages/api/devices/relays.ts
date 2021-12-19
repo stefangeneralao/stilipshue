@@ -2,7 +2,7 @@ import axios from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { Relay } from '~/types/relay';
 
-const API_URL = process.env.API_URL;
+const API_URL = process.env.API_URL || 'http://localhost:3001';
 
 export default async function handler(
   _req: NextApiRequest,
