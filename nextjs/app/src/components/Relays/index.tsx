@@ -8,8 +8,7 @@ import { Relays as StyledRelays } from './style';
 const fetcher = (url: string) => axios(url).then((res) => res.data);
 
 const Relays = () => {
-  const { data, error } = useSwr<TRelay[]>('/api/devices/relays', fetcher, {
-    refreshInterval: 1000,
+  const { data, error } = useSwr<TRelay[]>('/api/relays', fetcher, {
     revalidateOnMount: true,
   });
 
@@ -20,7 +19,7 @@ const Relays = () => {
   if (!data) {
     return (
       <StyledRelays>
-        {Array(6)
+        {Array(7)
           .fill(null)
           .map((_, i) => (
             <Relay key={`${i}`} name="Loading..." id="" initialState="off" />

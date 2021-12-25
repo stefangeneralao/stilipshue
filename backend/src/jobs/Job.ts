@@ -1,8 +1,9 @@
 import { v4 as uuid } from 'uuid';
 import schedule from 'node-schedule';
-import { Task } from './Task';
 
-export default class Job {
+import { Task } from '../tasks/Task';
+
+export class Job {
   private id: string = uuid();
   private rule: schedule.RecurrenceSpecObjLit | undefined;
   private tasks: Task[] = [];

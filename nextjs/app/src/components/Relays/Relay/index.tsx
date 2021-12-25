@@ -1,5 +1,6 @@
-import axios from 'axios';
 import React, { useState } from 'react';
+import axios from 'axios';
+import CircularProgress from '@mui/material/CircularProgress';
 import type { Relay as TRelay, RelayState } from '~/types/relay';
 import { IconWrapper, P, RelayCard, StyledSwitch } from '../style';
 import Icon from './Icon';
@@ -12,7 +13,7 @@ interface Props {
 }
 
 const Relay = ({ name, initialState, id }: Props) => {
-  const [state, setState] = useState(initialState);
+  const [state, setState] = useState<RelayState>(initialState);
   const [networkStatus, setNetworkStatus] = useState<NetworkStatus>('success');
 
   const onClickHandler = async () => {
@@ -24,7 +25,7 @@ const Relay = ({ name, initialState, id }: Props) => {
     setState(state === 'on' ? 'off' : 'on');
 
     try {
-      const { data } = await axios.patch<TRelay>(`/api/devices/relay/${id}`, {
+      const { data } = await axios.patch<TRelay>(`/api/relays/${id}`, {
         id,
         state: state === 'on' ? 'off' : 'on',
       });
@@ -44,7 +45,7 @@ const Relay = ({ name, initialState, id }: Props) => {
       case 'error':
         return 'error';
       case 'success':
-        return state === 'on' ? 'on' : 'off';
+        return state === 'on' ? 'on' : state === 'unknown' ? 'error' : 'off';
       default:
         throw new Error('Unknown network status');
     }
@@ -52,7 +53,7 @@ const Relay = ({ name, initialState, id }: Props) => {
 
   return (
     <>
-      <RelayCard onClick={onClickHandler} disabled={state === 'off'}>
+      <RelayCard onClick={onClickHandler} disabled={state !== 'on'}>
         <IconWrapper>
           <Icon status={iconStatus} />
         </IconWrapper>

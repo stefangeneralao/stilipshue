@@ -9,7 +9,7 @@ export default async function handler(
   res: NextApiResponse<Relay[]>
 ) {
   try {
-    const { data } = await axios.get<Relay[]>(`${API_URL}/devices/relays`);
+    const { data } = await axios.get<Relay[]>(`${API_URL}/relays`);
     res.status(200).json(data);
   } catch (err: any) {
     res.status(500).send(err.message);

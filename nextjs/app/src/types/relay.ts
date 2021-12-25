@@ -4,4 +4,4 @@ export type Relay = {
   state: RelayState;
 };
 
-export type RelayState = 'on' | 'off';
+export type RelayState = 'on' | 'off' | 'unknown';

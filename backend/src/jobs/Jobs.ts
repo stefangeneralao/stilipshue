@@ -1,11 +1,9 @@
-import Job from './Job';
-import { shellyRelays } from './ShellyRelays';
-import Tasks from './Tasks';
+import { Job } from './Job';
+
 export class Jobs {
   private jobs: { [key: string]: Job } = {};
 
   addJob(job: Job) {
-    console.log(`Setting job for ${job.getId()}.`);
     this.cancelJobById(job.getId());
     this.jobs[job.getId()] = job;
     return this;

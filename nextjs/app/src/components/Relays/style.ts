@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import { Switch, Typography } from '@mui/material';
 import { WbIncandescentTwoTone, Error } from '@mui/icons-material';
+import CircularProgress from '@mui/material/CircularProgress';
 import Card from '~/components/Card';
 
 export const Relays = styled.div`
@@ -10,7 +11,7 @@ export const Relays = styled.div`
 
 export const RelayCard = styled(Card)<{ disabled?: boolean }>`
   display: grid;
-  grid-template-rows: min-content auto;
+  grid-template-rows: 38px auto;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 10px;
 
@@ -20,21 +21,21 @@ export const RelayCard = styled(Card)<{ disabled?: boolean }>`
 `;
 
 export const IconWrapper = styled.div`
-  height: 100%;
-  position: relative;
+  display: grid;
+  align-items: center;
 `;
 
-export const StyledCommonIcon = css`
-  position: absolute;
-  transform: translateY(-50%);
-  top: 50%;
-`;
+export const StyledCommonIcon = css``;
 
 export const BulbIcon = styled(WbIncandescentTwoTone)`
   ${StyledCommonIcon}
 `;
 
 export const ErrorIcon = styled(Error)`
+  ${StyledCommonIcon}
+`;
+
+export const LoadingIcon = styled(CircularProgress)`
   ${StyledCommonIcon}
 `;
 
