@@ -5,9 +5,9 @@ import { Relay } from '../relays';
 export abstract class Task {
   private id: string;
   private name: string;
-  private callback: () => void;
+  private callback: () => Promise<void>;
 
-  constructor(name: string, callback: () => void) {
+  constructor(name: string, callback: () => Promise<void>) {
     this.id = uuid();
     this.name = name;
     this.callback = callback;
@@ -28,8 +28,12 @@ export abstract class Task {
     };
   }
 
-  run() {
-    this.callback();
+  async run() {
+    try {
+      await this.callback();
+    } catch {
+      console.log(`Could not run task "${this.name}".`);
+    }
     return this;
   }
 }
@@ -37,7 +41,7 @@ export abstract class Task {
 abstract class RelayTask extends Task {
   private relay: Relay;
 
-  constructor(relay: Relay, name: string, callback: () => void) {
+  constructor(relay: Relay, name: string, callback: () => Promise<void>) {
     super(name, callback);
 
     this.relay = relay;

@@ -14,7 +14,7 @@ export const jobs = new Jobs()
   .addJob(
     new Job()
       .setId('heater on')
-      .setRule({ hour: 5, minute: 0 })
+      .setRule({ hour: 11, minute: 1 })
       .addTask(new (Tasks.getAllTasks().turnOnRelay)(heater))
   )
   .addJob(
