@@ -84,6 +84,10 @@ export class Job {
     return this.skipOnce;
   }
 
+  executeTasks() {
+    this.getTasks().forEach((task) => task.run());
+  }
+
   toJSON() {
     return {
       id: this.id,

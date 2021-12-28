@@ -21,6 +21,8 @@ const MainRow = ({ setOpen, open, jobName, rule, initialSkipOnce }: Props) => {
   const [isSkipOnce, setIsSkipOnce] = useState(initialSkipOnce);
   const [skipOnceNetworkStatus, setSkipOnceNetworkStatus] =
     useState<NetworkStatus>('success');
+  const [executeNowNetworkStatus, setExecuteNowNetworkStatus] =
+    useState<NetworkStatus>('success');
 
   const handleSkipOnce = async () => {
     try {
@@ -33,6 +35,19 @@ const MainRow = ({ setOpen, open, jobName, rule, initialSkipOnce }: Props) => {
     } catch {
       console.log('Fail to skip once');
       setSkipOnceNetworkStatus('error');
+    }
+  };
+
+  const handleExecuteNow = async () => {
+    try {
+      setExecuteNowNetworkStatus('loading');
+      await axios.patch<Job>(`/api/jobs/${jobName}`, {
+        executeNow: true,
+      });
+      setExecuteNowNetworkStatus('success');
+    } catch {
+      console.log('Fail to execute now');
+      setExecuteNowNetworkStatus('error');
     }
   };
 
@@ -63,7 +78,7 @@ const MainRow = ({ setOpen, open, jobName, rule, initialSkipOnce }: Props) => {
         />
       </TableCell>
       <TableCell align="right" sx={{ borderBottom: 'unset' }}>
-        <IconButton>
+        <IconButton onClick={handleExecuteNow}>
           <PlayArrow />
         </IconButton>
       </TableCell>

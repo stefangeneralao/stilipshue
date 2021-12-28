@@ -64,10 +64,17 @@ router.get('/', (_, res) => {
 
 router.patch(
   '/:id',
-  (req: Request<{ id: string }, unknown, { skipOnce: boolean }>, res) => {
+  (
+    req: Request<
+      { id: string },
+      unknown,
+      { skipOnce?: boolean; executeNow?: boolean }
+    >,
+    res
+  ) => {
     console.log('Received request to update job.');
     const { id } = req.params;
-    const { skipOnce } = req.body;
+    const { skipOnce, executeNow } = req.body;
 
     const job = jobs.getJobById(id);
 
@@ -76,7 +83,15 @@ router.patch(
       return;
     }
 
-    job.setSkipOnce(skipOnce);
+    if (typeof skipOnce === 'boolean') {
+      console.log('Setting skipOnce to', skipOnce);
+      job.setSkipOnce(skipOnce);
+    }
+
+    if (typeof executeNow === 'boolean' || executeNow) {
+      console.log('Executing all tasks now.');
+      job.executeTasks();
+    }
 
     res.status(200).send(job.toJSON());
   }
