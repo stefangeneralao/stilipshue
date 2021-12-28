@@ -13,6 +13,7 @@ export interface Task {
 export interface Job {
   rule: Rule;
   tasks: Task[];
+  skipOnce: boolean;
 }
 
 export interface Jobs {

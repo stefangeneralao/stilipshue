@@ -26,7 +26,7 @@ export class Jobs {
   cancelJobById(id: string) {
     const job = this.getJobById(id);
     if (job) {
-      job.cancelAllTasks();
+      job.cancel();
       delete this.jobs[id];
     }
     return this;

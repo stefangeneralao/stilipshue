@@ -1,7 +1,7 @@
 import React from 'react';
 import { RelayState } from '~/types/relay';
 import { BulbIcon, ErrorIcon, LoadingIcon } from '../style';
-import { NetworkStatus } from '../types';
+import { NetworkStatus } from '~/types/network';
 interface Props {
   status: NetworkStatus | RelayState;
 }

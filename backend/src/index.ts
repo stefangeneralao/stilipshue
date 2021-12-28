@@ -23,6 +23,10 @@ app.use('/jobs', jobsController);
 app.use('/relays', relaysController);
 app.use('/tasks', tasksController);
 
+app.get('/', (req, res) => {
+  res.send(new Date().toLocaleString());
+});
+
 const port = config.serverPort;
 app.listen(port, () => {
   console.log(`Server listening on port ${port}.`);

@@ -6,7 +6,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "docker:push": "./scripts/push.sh"
+    "docker:push": "./scripts/docker/push.sh"
   },
   "dependencies": {
     "@emotion/react": "^11.7.0",

@@ -12,7 +12,7 @@ router.post(
   (
     req: Request<
       null,
-      null,
+      unknown,
       {
         id?: string;
         rule?: {
@@ -61,5 +61,25 @@ router.get('/', (_, res) => {
   console.log('Received request for all jobs.');
   res.status(200).send(jobs.toJSON());
 });
+
+router.patch(
+  '/:id',
+  (req: Request<{ id: string }, unknown, { skipOnce: boolean }>, res) => {
+    console.log('Received request to update job.');
+    const { id } = req.params;
+    const { skipOnce } = req.body;
+
+    const job = jobs.getJobById(id);
+
+    if (!job) {
+      res.status(404).send('Job not found.');
+      return;
+    }
+
+    job.setSkipOnce(skipOnce);
+
+    res.status(200).send(job.toJSON());
+  }
+);
 
 export const jobsController = router;

@@ -68,13 +68,14 @@ const Jobs = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map(({ jobKey, tasks, rule }) => (
+          {rows.map(({ jobKey, tasks, rule, skipOnce }) => (
             <Row
               key={jobKey}
               jobName={jobKey}
               tasks={tasks}
               rule={rule}
               colSpan={5}
+              skipOnce={skipOnce}
             />
           ))}
         </TableBody>

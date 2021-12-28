@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import CircularProgress from '@mui/material/CircularProgress';
 import type { Relay as TRelay, RelayState } from '~/types/relay';
 import { IconWrapper, P, RelayCard, StyledSwitch } from '../style';
 import Icon from './Icon';
-import { NetworkStatus } from '../types';
+import { NetworkStatus } from '~/types/network';
 
 interface Props {
   name: string;

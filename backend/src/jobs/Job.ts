@@ -8,6 +8,7 @@ export class Job {
   private rule: schedule.RecurrenceSpecObjLit | undefined;
   private tasks: Task[] = [];
   private job: schedule.Job | undefined;
+  private skipOnce: boolean = false;
 
   setId(id: string) {
     this.id = id;
@@ -25,7 +26,7 @@ export class Job {
       second: 0,
       ...rule,
     };
-    this.job?.cancel();
+    this.cancel();
     this.job = schedule.scheduleJob(rule, () =>
       this.getTasks().forEach((task) => task.run())
     );
@@ -45,7 +46,7 @@ export class Job {
     return this.tasks;
   }
 
-  cancelAllTasks() {
+  cancel() {
     this.job?.cancel();
     this.job = undefined;
     return this;
@@ -56,11 +57,39 @@ export class Job {
     return this;
   }
 
+  setSkipOnce(skipOnce: boolean) {
+    if (!this.rule || !this.job) {
+      this.skipOnce = false;
+      return;
+    }
+
+    if (skipOnce) {
+      this.cancel();
+      this.skipOnce = true;
+
+      this.job = schedule.scheduleJob(this.rule, () => {
+        this.setSkipOnce(false);
+      });
+    } else {
+      this.cancel();
+      this.skipOnce = false;
+
+      this.job = schedule.scheduleJob(this.rule, () =>
+        this.getTasks().forEach((task) => task.run())
+      );
+    }
+  }
+
+  getSkipOnce() {
+    return this.skipOnce;
+  }
+
   toJSON() {
     return {
       id: this.id,
       rule: this.rule,
       tasks: this.tasks.map((task) => task.toJSON()),
+      skipOnce: this.skipOnce,
     };
   }
 }
