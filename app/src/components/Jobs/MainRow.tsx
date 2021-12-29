@@ -78,8 +78,15 @@ const MainRow = ({ setOpen, open, jobName, rule, initialSkipOnce }: Props) => {
         />
       </TableCell>
       <TableCell align="right" sx={{ borderBottom: 'unset' }}>
-        <IconButton onClick={handleExecuteNow}>
-          <PlayArrow />
+        <IconButton
+          disabled={executeNowNetworkStatus === 'loading'}
+          onClick={handleExecuteNow}
+        >
+          <PlayArrow
+            color={
+              executeNowNetworkStatus === 'loading' ? 'disabled' : 'primary'
+            }
+          />
         </IconButton>
       </TableCell>
     </TableRow>

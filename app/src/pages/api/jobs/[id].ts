@@ -1,8 +1,7 @@
 import axios from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { Jobs } from '~/types/jobs';
-
-const API_URL = process.env.API_URL || 'http://localhost:3001';
+import { apiUrl } from '~/utils';
 
 export default async function handler(
   req: NextApiRequest,
@@ -12,7 +11,7 @@ export default async function handler(
     const { id } = req.query;
     const { skipOnce, executeNow } = req.body;
 
-    const { data } = await axios.patch<Jobs>(`${API_URL}/jobs/${id}`, {
+    const { data } = await axios.patch<Jobs>(`${apiUrl}/jobs/${id}`, {
       skipOnce,
       executeNow,
     });

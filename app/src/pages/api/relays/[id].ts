@@ -1,8 +1,7 @@
 import axios from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { Relay } from '~/types/relay';
-
-const API_URL = process.env.API_URL || 'http://localhost:3001';
+import { apiUrl } from '~/utils';
 
 export default async function handler(
   req: NextApiRequest,
@@ -16,7 +15,7 @@ export default async function handler(
   switch (method) {
     case 'GET':
       try {
-        const { data } = await axios.post<Relay>(`${API_URL}/relays/${id}`);
+        const { data } = await axios.post<Relay>(`${apiUrl}/relays/${id}`);
         res.status(200).json(data);
       } catch (err: any) {
         res.status(500).send(err.message);
@@ -32,7 +31,7 @@ export default async function handler(
         }
 
         const { data } = await axios.post<Relay>(
-          `${API_URL}/relays/${id}?state=${state}`
+          `${apiUrl}/relays/${id}?state=${state}`
         );
         res.status(200).json(data);
       } catch (err: any) {

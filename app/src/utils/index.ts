@@ -14,3 +14,5 @@ export const parseTaskRule = ({
     minute,
     second,
   }).format('HH:mm:ss');
+
+export const apiUrl = process.env.API_URL || 'http://localhost:3001';
