@@ -18,7 +18,9 @@ export class Relays {
   }
 
   findByName(name: string): Relay[] {
-    return this.findAll((relay) => relay.getName().includes(name));
+    return this.findAll((relay) =>
+      relay.getName().toLowerCase().includes(name.toLowerCase())
+    );
   }
 
   getAll() {
