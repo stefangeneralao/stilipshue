@@ -10,6 +10,7 @@ const fetcher = (url: string) => axios(url).then((res) => res.data);
 const Relays = () => {
   const { data, error } = useSwr<TRelay[]>('/api/relays', fetcher, {
     revalidateOnMount: true,
+    refreshInterval: 1000,
   });
 
   if (error) {
