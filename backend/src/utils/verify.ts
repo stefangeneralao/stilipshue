@@ -1,4 +1,5 @@
 import { Config, Relay } from '../types/config';
+import { TaskRule } from '../types/rule';
 
 const verifyConfigKeys = (config: Config) => {
   const configKeys = Object.keys(config);
@@ -56,3 +57,11 @@ export const verifyConfig = (config: Config) => {
   verifyRelaysConfig(config.relays);
   verifyServerPort(config.serverPort);
 };
+
+export const instanceOfTaskRule = (object: any): object is TaskRule =>
+  'hour' in object &&
+  'minute' in object &&
+  'second' in object &&
+  typeof object.hour === 'number' &&
+  typeof object.minute === 'number' &&
+  typeof object.second === 'number';

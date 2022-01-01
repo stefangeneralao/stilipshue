@@ -25,7 +25,7 @@ const Row = ({
         open={open}
         setOpen={setOpen}
         jobName={jobName}
-        rule={rule}
+        initialRule={rule}
         initialSkipOnce={skipOnce}
       />
       <CollapsedContent colSpan={colSpan} tasks={tasks} open={open} />

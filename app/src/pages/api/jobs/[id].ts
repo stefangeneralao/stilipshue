@@ -9,11 +9,12 @@ export default async function handler(
 ) {
   try {
     const { id } = req.query;
-    const { skipOnce, executeNow } = req.body;
+    const { skipOnce, executeNow, rule } = req.body;
 
     const { data } = await axios.patch<Jobs>(`${apiUrl}/jobs/${id}`, {
       skipOnce,
       executeNow,
+      rule,
     });
     res.status(200).json(data);
   } catch (err: any) {

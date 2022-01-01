@@ -5,7 +5,7 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { Checkbox, Input, TableCell, TableRow } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import { Job, Rule } from '~/types/jobs';
-import { parseTaskRule } from '~/utils';
+import { parseTaskRule, taskRuleToString } from '~/utils';
 import axios from 'axios';
 import { NetworkStatus } from '~/types/network';
 
@@ -13,12 +13,19 @@ interface Props {
   setOpen: (open: boolean) => void;
   open: boolean;
   jobName: string;
-  rule: Rule;
+  initialRule: Rule;
   initialSkipOnce: boolean;
 }
 
-const MainRow = ({ setOpen, open, jobName, rule, initialSkipOnce }: Props) => {
+const MainRow = ({
+  setOpen,
+  open,
+  jobName,
+  initialRule,
+  initialSkipOnce,
+}: Props) => {
   const [isSkipOnce, setIsSkipOnce] = useState(initialSkipOnce);
+  const [rule, setRule] = useState(taskRuleToString(initialRule));
   const [skipOnceNetworkStatus, setSkipOnceNetworkStatus] =
     useState<NetworkStatus>('success');
   const [executeNowNetworkStatus, setExecuteNowNetworkStatus] =
@@ -51,6 +58,20 @@ const MainRow = ({ setOpen, open, jobName, rule, initialSkipOnce }: Props) => {
     }
   };
 
+  const handleTimeChange = async (
+    e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => {
+    try {
+      const newRule = parseTaskRule(e.target.value);
+      setRule(e.currentTarget.value);
+      await axios.patch<Job>(`/api/jobs/${jobName}`, {
+        rule: newRule,
+      });
+    } catch {
+      console.log('Fail to set rule');
+    }
+  };
+
   return (
     <TableRow>
       <TableCell
@@ -68,7 +89,12 @@ const MainRow = ({ setOpen, open, jobName, rule, initialSkipOnce }: Props) => {
         <Input type="text" value={jobName} disableUnderline />
       </TableCell>
       <TableCell align="right" sx={{ borderBottom: 'unset' }}>
-        <Input type="time" value={parseTaskRule(rule)} disableUnderline />
+        <Input
+          type="time"
+          value={rule}
+          disableUnderline
+          onChange={handleTimeChange}
+        />
       </TableCell>
       <TableCell align="right" sx={{ borderBottom: 'unset' }}>
         <Checkbox

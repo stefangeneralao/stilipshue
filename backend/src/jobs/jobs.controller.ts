@@ -4,6 +4,8 @@ import { Job } from './Job';
 import { jobs } from './JobsPreset';
 import { TTasks, Tasks } from '../tasks/Tasks';
 import { defaultRelays } from '../relays';
+import { TaskRule } from '../types/rule';
+import { instanceOfTaskRule } from '../utils/verify';
 
 const router = Router();
 
@@ -68,13 +70,13 @@ router.patch(
     req: Request<
       { id: string },
       unknown,
-      { skipOnce?: boolean; executeNow?: boolean }
+      { skipOnce?: boolean; executeNow?: boolean; rule?: TaskRule }
     >,
     res
   ) => {
     console.log('Received request to update job.');
     const { id } = req.params;
-    const { skipOnce, executeNow } = req.body;
+    const { skipOnce, executeNow, rule } = req.body;
 
     const job = jobs.getJobById(id);
 
@@ -91,6 +93,11 @@ router.patch(
     if (typeof executeNow === 'boolean' || executeNow) {
       console.log('Executing all tasks now.');
       job.executeTasks();
+    }
+
+    if (instanceOfTaskRule(rule)) {
+      console.log('Setting rule to', rule);
+      job.setRule(rule);
     }
 
     res.status(200).send(job.toJSON());
