@@ -7,10 +7,12 @@ export class Relay {
   private readonly id: string = uuid();
   private address: string;
   private name: string;
+  private tags: string[] = [];
 
-  constructor(address: string, name: string) {
+  constructor(address: string, name: string, tags: string[]) {
     this.address = address;
     this.name = name;
+    this.tags = tags;
   }
 
   async getState(): Promise<RelayState> {
@@ -60,6 +62,10 @@ export class Relay {
 
   getId() {
     return this.id;
+  }
+
+  getTags() {
+    return this.tags;
   }
 
   async toJSON() {

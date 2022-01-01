@@ -40,14 +40,48 @@ router.all(
   }
 );
 
-router.get('/', async (_, res) => {
-  console.log('Received request for all devices.');
-  try {
-    const devices = await defaultRelays.toJSON();
-    res.send(devices);
-  } catch {
-    res.status(500).send('Failed to get relays.');
+// Endpoint for setting the state of multiple relays.
+router.all(
+  '/',
+  async (
+    req: Request<{}, {}, {}, { state?: RelayState; tags?: string }>,
+    res
+  ) => {
+    try {
+      const { state, tags } = req.query;
+      console.log(req.query);
+
+      const devices = await (async () => {
+        if (tags) {
+          console.log('Received request for relays with tags.');
+          const tagsArray = tags.split(',');
+          return defaultRelays.findByTags(tagsArray);
+        } else {
+          console.log('Received request for all relays.');
+          return defaultRelays.getAll();
+        }
+      })();
+
+      if (state) {
+        const newState = await (async () => {
+          if (state === 'toggle') {
+            const [firstDevice] = devices;
+            if (!firstDevice) return state;
+
+            return (await firstDevice.getState()) === 'on' ? 'off' : 'on';
+          }
+
+          return state;
+        })();
+
+        await Promise.all(devices.map((device) => device.setState(newState)));
+      }
+
+      res.send(await Promise.all(devices.map((device) => device.toJSON())));
+    } catch {
+      res.status(500).send('An error occurred.');
+    }
   }
-});
+);
 
 export const relaysController = router;

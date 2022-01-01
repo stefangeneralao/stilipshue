@@ -3,7 +3,7 @@ import { TaskRule } from '../types/rule';
 
 const verifyConfigKeys = (config: Config) => {
   const configKeys = Object.keys(config);
-  const expectedConfigKeys = ['relays', 'serverPort', 'buttons', 'sensors'];
+  const expectedConfigKeys = ['relays', 'serverPort'];
 
   const hasAllConfigKeys =
     configKeys.length === expectedConfigKeys.length &&
@@ -23,7 +23,7 @@ const verifyRelaysConfig = (relays: Relay[]) => {
 
   const hasAllProperties = relays.every((relay) => {
     const relayKeys = Object.keys(relay);
-    const expectedRelayKeys = ['name', 'address'];
+    const expectedRelayKeys = ['name', 'address', 'tags'];
 
     return (
       relayKeys.length === expectedRelayKeys.length &&

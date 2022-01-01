@@ -1,15 +1,16 @@
 import { Relay } from './Relay';
+import { Relay as RelayType } from '../types/config';
 import config from '../../config';
 
 export class Relays {
   private readonly relays: Relay[] = [];
 
-  addRelay(address: string, name: string) {
-    this.relays.push(new Relay(address, name));
+  addRelay(address: string, name: string, tags: string[]) {
+    this.relays.push(new Relay(address, name, tags));
     return this;
   }
 
-  findAll(callback: (relay: Relay) => boolean): Relay[] {
+  find(callback: (relay: Relay) => boolean): Relay[] {
     return this.relays.filter(callback);
   }
 
@@ -18,8 +19,14 @@ export class Relays {
   }
 
   findByName(name: string): Relay[] {
-    return this.findAll((relay) =>
+    return this.find((relay) =>
       relay.getName().toLowerCase().includes(name.toLowerCase())
+    );
+  }
+
+  findByTags(tags: string[]): Relay[] {
+    return this.find((relay) =>
+      tags.some((tag) => relay.getTags().includes(tag))
     );
   }
 
@@ -33,6 +40,6 @@ export class Relays {
 }
 
 export const defaultRelays = new Relays();
-config.relays.forEach((relay) =>
-  defaultRelays.addRelay(relay.address, relay.name)
+config.relays.forEach((relay: RelayType) =>
+  defaultRelays.addRelay(relay.address, relay.name, relay.tags)
 );
