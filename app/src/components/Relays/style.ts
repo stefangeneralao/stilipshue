@@ -9,15 +9,17 @@ export const Relays = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
 `;
 
-export const RelayCard = styled(Card)<{ disabled?: boolean }>`
+export const RelayCard = styled(Card)<{
+  disabled?: boolean;
+  loading?: boolean;
+}>`
   display: grid;
-  grid-template-rows: 38px auto;
+  grid-template-rows: 38px minmax(45px, auto);
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 10px;
 
   background: ${(props) => (props.disabled ? '#f0f0f0' : 'white')};
-
-  cursor: pointer;
+  cursor: ${(props) => (props.loading ? 'wait' : 'pointer')};
 `;
 
 export const IconWrapper = styled.div`

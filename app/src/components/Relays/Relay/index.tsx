@@ -52,7 +52,7 @@ const Relay = ({ name, initialState, id }: Props) => {
 
   return (
     <>
-      <RelayCard onClick={onClickHandler} disabled={state !== 'on'}>
+      <RelayCard onClick={onClickHandler} loading={networkStatus === 'loading'}>
         <IconWrapper>
           <Icon status={iconStatus} />
         </IconWrapper>
