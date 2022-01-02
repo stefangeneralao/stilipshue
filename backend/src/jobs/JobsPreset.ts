@@ -3,12 +3,20 @@ import { Jobs } from './Jobs';
 import { defaultRelays } from '../relays';
 import { Tasks } from '../tasks/Tasks';
 
-const [bedroom1, bedroom2] = defaultRelays.findByName('bedroom');
-const [christmas] = defaultRelays.findByName('christmas');
-const [windowPlant] = defaultRelays.findByName('window plant');
-const [plantShelf] = defaultRelays.findByName('plant shelf');
-const [heater] = defaultRelays.findByName('heater');
-const [ledString] = defaultRelays.findByName('led string');
+const [bedroom1, bedroom2] = defaultRelays.findByTags(['bedroom']);
+const [windowPlant, plantShelf] = defaultRelays.findByTags(['plant']);
+const [christmas, ledString] = defaultRelays.findByTags(['cozy']);
+const [heater] = defaultRelays.findByTags(['heater']);
+
+console.log([
+  bedroom1,
+  bedroom2,
+  windowPlant,
+  plantShelf,
+  christmas,
+  ledString,
+  heater,
+]);
 
 export const jobs = new Jobs()
   .addJob(

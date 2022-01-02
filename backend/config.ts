@@ -19,19 +19,23 @@ const relays: Relay[] = [
   {
     address: 'http://192.168.0.7:4001',
     name: 'Plant shelf',
-    tags: ['plant', 'hallway'],
+    tags: ['hallway', 'plant', 'shelf'],
   },
   {
     address: 'http://192.168.0.36',
     name: 'Window christmas lamp',
-    tags: ['window', 'lamp', 'cozy'],
+    tags: ['window', 'cozy', 'lamp'],
   },
   {
     address: 'http://192.168.0.42',
     name: 'LED string',
-    tags: ['window', 'lamp', 'cozy'],
+    tags: ['window', 'cozy', 'lamp'],
   },
-  { address: 'http://192.168.0.37', name: 'Heater', tags: ['heater'] },
+  {
+    address: 'http://192.168.0.37',
+    name: 'Heater',
+    tags: ['window', 'heater'],
+  },
 ];
 
 const serverPort = 3001;
