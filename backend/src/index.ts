@@ -4,7 +4,11 @@ import config from '../config';
 import { jobsController } from './jobs/jobs.controller';
 import { relaysController } from './relays/relays.controller';
 import { tasksController } from './tasks/tasks.controller';
+import { buttonController } from './button/button.controller';
 import { verifyConfig } from './utils/verify';
+// import { connect } from '././database';
+
+// connect();
 
 try {
   verifyConfig(config);
@@ -22,6 +26,7 @@ app.use(cors());
 app.use('/jobs', jobsController);
 app.use('/relays', relaysController);
 app.use('/tasks', tasksController);
+app.use('/button', buttonController);
 
 app.get('/', (req, res) => {
   res.send(new Date().toLocaleString());
