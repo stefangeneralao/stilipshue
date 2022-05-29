@@ -7,7 +7,7 @@ const JobsPage: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Stilips Hue - Schema</title>
+        <title>Stilips Hue - Schedule</title>
       </Head>
       <Jobs />
     </>

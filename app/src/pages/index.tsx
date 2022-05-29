@@ -17,8 +17,8 @@ const Home: NextPage = () => {
         <Card>
           <Link href="/relays">
             <a>
-              <h2>Reläer</h2>
-              <p>Kontrollera lampor och sånt.</p>
+              <h2>Relays</h2>
+              <p>Control lamps and stuff.</p>
             </a>
           </Link>
         </Card>
@@ -26,8 +26,8 @@ const Home: NextPage = () => {
         <Card>
           <Link href="/jobs">
             <a>
-              <h2>Schema</h2>
-              <p>Konfiguera schemaläggning och sånt.</p>
+              <h2>Schedule</h2>
+              <p>Configuration of schedule events.</p>
             </a>
           </Link>
         </Card>

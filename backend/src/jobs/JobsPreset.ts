@@ -5,18 +5,9 @@ import { Tasks } from '../tasks/Tasks';
 
 const [bedroom1, bedroom2] = defaultRelays.findByTags(['bedroom']);
 const [windowPlant, plantShelf] = defaultRelays.findByTags(['plant']);
-const [christmas, ledString] = defaultRelays.findByTags(['cozy']);
+const [mushroom] = defaultRelays.findByTags(['mushroom']);
+const [ledString] = defaultRelays.findByTags(['led-string']);
 const [heater] = defaultRelays.findByTags(['heater']);
-
-console.log([
-  bedroom1,
-  bedroom2,
-  windowPlant,
-  plantShelf,
-  christmas,
-  ledString,
-  heater,
-]);
 
 export const jobs = new Jobs()
   .addJob(
@@ -38,7 +29,7 @@ export const jobs = new Jobs()
       .setRule({ hour: 6, minute: 30 })
       .addTask(new (Tasks.getAllTasks().turnOnRelay)(bedroom1))
       .addTask(new (Tasks.getAllTasks().turnOnRelay)(bedroom2))
-      .addTask(new (Tasks.getAllTasks().turnOnRelay)(christmas))
+      .addTask(new (Tasks.getAllTasks().turnOnRelay)(mushroom))
       .addTask(new (Tasks.getAllTasks().turnOnRelay)(ledString))
   )
   .addJob(
@@ -56,15 +47,15 @@ export const jobs = new Jobs()
   )
   .addJob(
     new Job()
-      .setId('Bed lights off')
+      .setId('Mushroom light off')
       .setRule({ hour: 22, minute: 0 })
-      .addTask(new (Tasks.getAllTasks().turnOffRelay)(bedroom1))
-      .addTask(new (Tasks.getAllTasks().turnOffRelay)(bedroom2))
+      .addTask(new (Tasks.getAllTasks().turnOffRelay)(mushroom))
   )
   .addJob(
     new Job()
-      .setId('Christmas lights off')
+      .setId('Cozy lights off')
       .setRule({ hour: 23, minute: 0 })
-      .addTask(new (Tasks.getAllTasks().turnOffRelay)(christmas))
+      .addTask(new (Tasks.getAllTasks().turnOffRelay)(bedroom1))
+      .addTask(new (Tasks.getAllTasks().turnOffRelay)(bedroom2))
       .addTask(new (Tasks.getAllTasks().turnOffRelay)(ledString))
   );

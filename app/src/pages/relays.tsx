@@ -7,7 +7,7 @@ const RelaysPage: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Stilips Hue - Reläer</title>
+        <title>Stilips Hue - Relays</title>
       </Head>
       <Relays />
     </>
