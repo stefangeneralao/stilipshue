@@ -22,7 +22,7 @@
   },
   "scripts": {
     "start": "nodemon",
-    "build": "esbuild src/index.ts --bundle --platform=node --outdir=build --minify",
+    "build": "esbuild src/index.ts --bundle --platform=node --outdir=build --sourcemap",
     "start:build": "node build",
     "tsc": "tsc -noEmit",
     "docker:push": "./scripts/docker/push.sh"

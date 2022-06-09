@@ -15,7 +15,7 @@ const Layout = ({ children }: Props) => {
       </Head>
       <Header label="Stilips Hue" />
       <StyledMain>{children}</StyledMain>
-      <StyledFooter>Made by Generalao Tech AB</StyledFooter>
+      <StyledFooter>Made by Generalao Tech AB - Version 0.2.0</StyledFooter>
     </>
   );
 };

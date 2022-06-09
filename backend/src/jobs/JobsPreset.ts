@@ -4,29 +4,21 @@ import { defaultRelays } from '../relays';
 import { Tasks } from '../tasks/Tasks';
 
 const [bedroom1, bedroom2] = defaultRelays.findByTags(['bedroom']);
-const [windowPlant, plantShelf] = defaultRelays.findByTags(['plant']);
+const [windowPlant] = defaultRelays.findByTags(['plant']);
 const [mushroom] = defaultRelays.findByTags(['mushroom']);
 const [ledString] = defaultRelays.findByTags(['led-string']);
-const [heater] = defaultRelays.findByTags(['heater']);
 
 export const jobs = new Jobs()
-  .addJob(
-    new Job()
-      .setId('Heater on')
-      .setRule({ hour: 5, minute: 0 })
-      .addTask(new (Tasks.getAllTasks().turnOnRelay)(heater))
-  )
   .addJob(
     new Job()
       .setId('Plant lamps on')
       .setRule({ hour: 6, minute: 0 })
       .addTask(new (Tasks.getAllTasks().turnOnRelay)(windowPlant))
-      .addTask(new (Tasks.getAllTasks().turnOnRelay)(plantShelf))
   )
   .addJob(
     new Job()
       .setId('Lights on')
-      .setRule({ hour: 6, minute: 30 })
+      .setRule({ hour: 7, minute: 0 })
       .addTask(new (Tasks.getAllTasks().turnOnRelay)(bedroom1))
       .addTask(new (Tasks.getAllTasks().turnOnRelay)(bedroom2))
       .addTask(new (Tasks.getAllTasks().turnOnRelay)(mushroom))
@@ -37,18 +29,11 @@ export const jobs = new Jobs()
       .setId('Plant lamps off')
       .setRule({ hour: 18, minute: 0 })
       .addTask(new (Tasks.getAllTasks().turnOffRelay)(windowPlant))
-      .addTask(new (Tasks.getAllTasks().turnOffRelay)(plantShelf))
-  )
-  .addJob(
-    new Job()
-      .setId('Heater off')
-      .setRule({ hour: 20, minute: 0 })
-      .addTask(new (Tasks.getAllTasks().turnOffRelay)(heater))
   )
   .addJob(
     new Job()
       .setId('Mushroom light off')
-      .setRule({ hour: 22, minute: 0 })
+      .setRule({ hour: 21, minute: 0 })
       .addTask(new (Tasks.getAllTasks().turnOffRelay)(mushroom))
   )
   .addJob(

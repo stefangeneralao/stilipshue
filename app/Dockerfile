@@ -1,20 +1,39 @@
-FROM node:alpine
+# Dependencies
+FROM --platform=$BUILDPLATFORM node:18-alpine AS dependencies
+RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-ENV NODE_ENV production
+COPY package.json yarn.lock ./
 
-RUN addgroup -g 1001 -S nodejs
-RUN adduser -S nextjs -u 1001
+RUN yarn install --frozen-lockfile --network-timeout 1000000
+
+# Builder
+FROM --platform=$BUILDPLATFORM node:18-alpine AS builder
+WORKDIR /app
+
+# COPY . .
+COPY public ./public
+COPY src ./src
+COPY package.json ./
+COPY tsconfig.json ./tsconfig.json
+COPY next.config.js ./next.config.js
+
+COPY --from=dependencies /app/node_modules ./node_modules
+
+RUN yarn build
+
+# Runner 
+FROM node:18-alpine AS runner
+WORKDIR /app
 
 COPY public ./public
-COPY --chown=nextjs:nodejs .next ./.next
-COPY node_modules ./node_modules
 COPY package.json ./package.json
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
 
-USER nextjs
-
+ENV NODE_ENV production
+ENV NEXT_TELEMETRY_DISABLED 1
+ENV PORT 3000
 EXPOSE 3000
 
-ENV PORT 3000
-
-CMD ["node_modules/.bin/next", "start"]
+CMD ["node", "server.js"]

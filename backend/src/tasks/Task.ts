@@ -47,6 +47,7 @@ abstract class RelayTask extends Task {
     this.relay = relay;
   }
 
+  
   toJSON() {
     return {
       ...super.toJSON(),
