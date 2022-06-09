@@ -23,4 +23,5 @@ jobs:
       -
         name: Build
         run: |
-          docker compose --help
+          docker compose build |
+          docker compose push
