@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  stilipshue-backend:
+    build: backend
+    platform: linux/arm64/v8
+    image: docker.stefangeneralao.com/stilipshue-backend
+  stilipshue-frontend:
+    build: app
+    platform: linux/arm64/v8
+    image: docker.stefangeneralao.com/stilipshue-frontend
+  
