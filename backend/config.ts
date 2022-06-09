@@ -17,19 +17,9 @@ const relays: Relay[] = [
     tags: ['window', 'plant', 'lamp'],
   },
   {
-    address: 'http://192.168.0.7:4001',
-    name: 'Plant shelf',
-    tags: ['hallway', 'plant', 'shelf'],
-  },
-  {
     address: 'http://192.168.0.42',
     name: 'LED string',
     tags: ['window', 'cozy', 'lamp', 'led-string'],
-  },
-  {
-    address: 'http://192.168.0.37',
-    name: 'Heater',
-    tags: ['window', 'heater'],
   },
   {
     address: 'http://192.168.0.46',
