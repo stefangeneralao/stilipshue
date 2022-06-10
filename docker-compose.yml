@@ -4,12 +4,8 @@ services:
     build: backend
     platform: linux/arm64/v8
     image: docker.stefangeneralao.com/stilipshue-backend
-    ports:
-      - '3001:3001'
   stilipshue-frontend:
     build: frontend
     platform: linux/arm64/v8
     image: docker.stefangeneralao.com/stilipshue-frontend
-    ports:
-      - '3000:3000'
   
