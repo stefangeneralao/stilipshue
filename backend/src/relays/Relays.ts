@@ -3,7 +3,9 @@ import { Relay as RelayType } from '../types/config';
 import config from '../../config';
 
 export class Relays {
-  private readonly relays: Relay[] = [];
+  private readonly relays: Relay[] = config.relays.map(
+    (relay: RelayType) => new Relay(relay.address, relay.name, relay.tags)
+  );
 
   addRelay(address: string, name: string, tags: string[]) {
     this.relays.push(new Relay(address, name, tags));
@@ -40,6 +42,3 @@ export class Relays {
 }
 
 export const defaultRelays = new Relays();
-config.relays.forEach((relay: RelayType) =>
-  defaultRelays.addRelay(relay.address, relay.name, relay.tags)
-);
