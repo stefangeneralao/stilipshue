@@ -26,6 +26,11 @@ const relays: Relay[] = [
     name: 'Mushroom lamp',
     tags: ['mushroom', 'cozy', 'lamp'],
   },
+  {
+    address: 'http://192.168.0.37',
+    name: 'Miner',
+    tags: [],
+  },
 ];
 
 const serverPort = 3001;
