@@ -7,8 +7,15 @@ const [bedroom1, bedroom2] = defaultRelays.findByTags(['bedroom']);
 const [windowPlant] = defaultRelays.findByTags(['plant']);
 const [mushroom] = defaultRelays.findByTags(['mushroom']);
 const [ledString] = defaultRelays.findByTags(['led-string']);
+const [miner] = defaultRelays.findByTags(['miner']);
 
-export const jobs = new Jobs()
+const jobs = new Jobs()
+  .addJob(
+    new Job()
+      .setId('Miner on')
+      .setRule({ hour: 6, minute: 0 })
+      .addTask(new (Tasks.getAllTasks().turnOnRelay)(miner))
+  )
   .addJob(
     new Job()
       .setId('Plant lamps on')
@@ -44,3 +51,5 @@ export const jobs = new Jobs()
       .addTask(new (Tasks.getAllTasks().turnOffRelay)(bedroom2))
       .addTask(new (Tasks.getAllTasks().turnOffRelay)(ledString))
   );
+
+export { jobs };
